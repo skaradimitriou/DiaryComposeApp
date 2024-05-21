@@ -7,12 +7,11 @@ import androidx.compose.runtime.Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AuthenticationScreen(
-    loadingState: Boolean,
     onButtonClicked: () -> Unit
 ) {
     Scaffold(
         content = {
-            AuthenticationContent(loadingState = loadingState, onButtonClicked = onButtonClicked)
+            AuthenticationContent(onButtonClicked = onButtonClicked)
         }
     )
 }

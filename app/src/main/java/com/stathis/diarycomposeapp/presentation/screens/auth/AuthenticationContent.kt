@@ -22,7 +22,7 @@ import com.stathis.diarycomposeapp.presentation.components.GoogleButton
 
 @Composable
 fun AuthenticationContent(
-    loadingState: Boolean,
+    loadingState: Boolean = false,
     onButtonClicked: () -> Unit
 ) {
     Column(
