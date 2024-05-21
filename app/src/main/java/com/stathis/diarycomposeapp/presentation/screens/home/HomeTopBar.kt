@@ -19,7 +19,7 @@ fun HomeTopBar(
 ) {
     TopAppBar(
         navigationIcon = {
-            IconButton(onClick = { /* TODO */ }) {
+            IconButton(onClick = onMenuClick) {
                 Icon(
                     imageVector = Icons.Default.Menu,
                     contentDescription = "Hamburger menu icon"
@@ -30,7 +30,7 @@ fun HomeTopBar(
             Text(text = title)
         },
         actions = {
-            IconButton(onClick = onMenuClick) {
+            IconButton(onClick = { }) {
                 Icon(
                     imageVector = Icons.Default.DateRange,
                     contentDescription = "Date Icon",
