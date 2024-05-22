@@ -20,6 +20,8 @@ googleServicesVersion = "4.4.1"
 firebaseAuth = "23.0.0"
 firebaseStorage = "21.0.0"
 oneTapCompose = "1.0.0"
+realm = "1.16.0"
+realmCoroutines = "1.7.0"
 
 
 [libraries]
@@ -51,6 +53,9 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuth" }
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage-ktx", version.ref = "firebaseStorage" }
 oneTapCompose = { group = "com.github.stevdza-san", name = "OneTapCompose", version.ref = "oneTapCompose" }
+realm-base = { group = "io.realm.kotlin", name = "library-base", version.ref = "realm" }
+realm-sync = { group = "io.realm.kotlin", name = "library-sync", version.ref = "realm" }
+realm-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "realmCoroutines" }
 
 
 [plugins]
@@ -59,3 +64,4 @@ jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "k
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 googleServices = { id = "com.google.gms.google-services", version.ref = "googleServicesVersion" }
+realm = { id = "io.realm.kotlin", version.ref = "realm" }

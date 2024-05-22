@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.googleServices)
+    alias(libs.plugins.realm)
 }
 
 android {
@@ -81,6 +82,10 @@ dependencies {
     implementation(libs.firebase.storage)
 
     implementation(libs.oneTapCompose)
+
+    implementation(libs.realm.base)
+    implementation(libs.realm.sync)
+    implementation(libs.realm.coroutines)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
