@@ -2,7 +2,6 @@ package com.stathis.diarycomposeapp.presentation.components
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
@@ -20,11 +19,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberAsyncImagePainter
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import kotlin.math.max
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -54,11 +56,14 @@ fun Gallery(
 
         Row {
             images.take(numberOfVisibleImages.value).forEach { image ->
-                Image(
+                AsyncImage(
                     modifier = Modifier
                         .clip(imageShape)
                         .size(imageSize),
-                    painter = rememberAsyncImagePainter(model = image),
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(image)
+                        .crossfade(true)
+                        .build(),
                     contentDescription = "Gallery Image"
                 )
                 Spacer(modifier = Modifier.width(spaceBetween))
@@ -97,4 +102,15 @@ fun LastImageOverlay(
             color = MaterialTheme.colorScheme.onPrimaryContainer
         )
     }
+}
+
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+@Preview
+@Composable
+fun GalleryPreview() {
+    Gallery(
+        images = listOf(
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1024px-Google_%22G%22_logo.svg.png"
+        )
+    )
 }

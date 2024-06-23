@@ -40,6 +40,7 @@ import com.stathis.diarycomposeapp.model.Diary
 import com.stathis.diarycomposeapp.model.Mood
 import com.stathis.diarycomposeapp.ui.theme.Elevation
 import com.stathis.diarycomposeapp.util.toInstant
+import io.realm.kotlin.ext.realmListOf
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -170,6 +171,7 @@ fun ShowGalleryBtn(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Preview(showBackground = true)
 @Composable
 fun PreviewDiaryHolder() {
@@ -178,8 +180,10 @@ fun PreviewDiaryHolder() {
             title = "My dummy diary"
             description = "Lorem ipsum sit dolor amet"
             mood = Mood.Neutral.name
+            images = realmListOf("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1024px-Google_%22G%22_logo.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1024px-Google_%22G%22_logo.svg.png")
         },
         onClick = {
             //
         })
 }
+
