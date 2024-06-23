@@ -1,5 +1,8 @@
 package com.stathis.diarycomposeapp.presentation.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,6 +45,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun DiaryHolder(
     diary: Diary,
@@ -48,6 +53,9 @@ fun DiaryHolder(
 ) {
     val localDensity = LocalDensity.current
     var componentHeight by remember { mutableStateOf(0.dp) }
+    var galleryOpened by remember {
+        mutableStateOf(false)
+    }
 
     Row(
         modifier = Modifier.clickable(
@@ -87,6 +95,21 @@ fun DiaryHolder(
                     overflow = TextOverflow.Ellipsis,
                     text = diary.description
                 )
+
+                if (diary.images.isNotEmpty()) {
+                    ShowGalleryBtn(
+                        galleryOpened = galleryOpened,
+                        onClick = {
+                            galleryOpened = !galleryOpened
+                        }
+                    )
+                }
+
+                AnimatedVisibility(visible = galleryOpened) {
+                    Column(modifier = Modifier.padding(all = 14.dp)) {
+                        Gallery(images = diary.images)
+                    }
+                }
             }
         }
     }
@@ -126,6 +149,23 @@ fun DiaryHeader(moodName: String, time: Instant) {
             text = formatter.format(time),
             color = mood.contentColor,
             style = TextStyle(fontSize = MaterialTheme.typography.bodyMedium.fontSize)
+        )
+    }
+}
+
+@Composable
+fun ShowGalleryBtn(
+    galleryOpened: Boolean,
+    onClick: () -> Unit
+) {
+    TextButton(
+        onClick = onClick
+    ) {
+        Text(
+            text = if (galleryOpened) "Hide Gallery" else "Show Gallery",
+            style = TextStyle(
+                fontSize = MaterialTheme.typography.bodySmall.fontSize
+            )
         )
     }
 }
