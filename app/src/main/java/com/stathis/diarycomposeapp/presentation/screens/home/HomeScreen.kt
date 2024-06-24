@@ -1,6 +1,8 @@
 package com.stathis.diarycomposeapp.presentation.screens.home
 
 import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -27,6 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.stathis.diarycomposeapp.R
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
@@ -55,7 +58,9 @@ fun HomeScreen(
                 }
             },
             content = {
+                HomeContent(diaryNotes = mapOf(), onClick = {
 
+                })
             }
         )
     }

@@ -3,6 +3,7 @@ package com.stathis.diarycomposeapp.navigation
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,6 +15,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.stathis.diarycomposeapp.data.repository.MongoDb
 import com.stathis.diarycomposeapp.presentation.components.DisplayAlertDialog
 import com.stathis.diarycomposeapp.presentation.screens.auth.AuthenticationScreen
 import com.stathis.diarycomposeapp.presentation.screens.home.HomeScreen
@@ -70,6 +72,11 @@ fun NavGraphBuilder.homeRoute(
             },
             onNavigateToWriteScreen = navigateToWrite
         )
+
+        LaunchedEffect(key1 = Unit) {
+            MongoDb.configureTheRealm()
+        }
+
         DisplayAlertDialog(
             title = "Sign Out",
             message = "Are you sure you want to sign out from your google account?",
