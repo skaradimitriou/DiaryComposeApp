@@ -19,10 +19,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.stathis.diarycomposeapp.data.repository.MongoDb
+import com.stathis.diarycomposeapp.model.Diary
 import com.stathis.diarycomposeapp.presentation.components.DisplayAlertDialog
 import com.stathis.diarycomposeapp.presentation.screens.auth.AuthenticationScreen
 import com.stathis.diarycomposeapp.presentation.screens.home.HomeScreen
 import com.stathis.diarycomposeapp.presentation.screens.home.HomeViewModel
+import com.stathis.diarycomposeapp.presentation.screens.write.WriteScreen
 import com.stathis.diarycomposeapp.util.RequestState
 import com.stathis.diarycomposeapp.util.WRITE_SCREEN_ARG_KEY
 import kotlinx.coroutines.launch
@@ -50,7 +52,12 @@ fun SetupNavGraph(
             },
             onDataLoaded = onDataLoaded
         )
-        writeRoute()
+
+        writeRoute(
+            onBackPressed = {
+                navController.popBackStack()
+            }
+        )
     }
 }
 
@@ -121,7 +128,9 @@ fun NavGraphBuilder.homeRoute(
     }
 }
 
-fun NavGraphBuilder.writeRoute() {
+fun NavGraphBuilder.writeRoute(
+    onBackPressed: () -> Unit
+) {
     composable(
         route = Screen.Write.route,
         arguments = listOf(navArgument(name = WRITE_SCREEN_ARG_KEY) {
@@ -130,6 +139,12 @@ fun NavGraphBuilder.writeRoute() {
             defaultValue = null
         })
     ) {
+        WriteScreen(
+            selectedDiary = null,
+            onBackPressed = onBackPressed,
+            onDeleteConfirm = {
 
+            }
+        )
     }
 }
