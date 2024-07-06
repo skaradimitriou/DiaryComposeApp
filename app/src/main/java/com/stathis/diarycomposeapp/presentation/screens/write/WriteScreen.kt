@@ -6,7 +6,6 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import com.stathis.diarycomposeapp.model.Diary
 import com.stathis.diarycomposeapp.model.Mood
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -14,7 +13,7 @@ import com.stathis.diarycomposeapp.model.Mood
 @Composable
 fun WriteScreen(
     uiState: UiState,
-    selectedDiary: Diary?,
+    moodName: () -> String,
     pagerState: PagerState,
     onTitleChanged: (String) -> Unit,
     onDescriptionChanged: (String) -> Unit,
@@ -28,7 +27,8 @@ fun WriteScreen(
     Scaffold(
         topBar = {
             WriteTopBar(
-                selectedDiary = selectedDiary,
+                selectedDiary = uiState.selectedDiary,
+                moodName = moodName,
                 onBackPressed = onBackPressed,
                 onDeleteConfirm = onDeleteConfirm
             )
