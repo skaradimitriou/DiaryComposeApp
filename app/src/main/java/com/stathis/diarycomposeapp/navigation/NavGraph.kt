@@ -2,6 +2,8 @@ package com.stathis.diarycomposeapp.navigation
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
@@ -19,7 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.stathis.diarycomposeapp.data.repository.MongoDb
-import com.stathis.diarycomposeapp.model.Diary
+import com.stathis.diarycomposeapp.model.Mood
 import com.stathis.diarycomposeapp.presentation.components.DisplayAlertDialog
 import com.stathis.diarycomposeapp.presentation.screens.auth.AuthenticationScreen
 import com.stathis.diarycomposeapp.presentation.screens.home.HomeScreen
@@ -128,9 +130,11 @@ fun NavGraphBuilder.homeRoute(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 fun NavGraphBuilder.writeRoute(
     onBackPressed: () -> Unit
 ) {
+
     composable(
         route = Screen.Write.route,
         arguments = listOf(navArgument(name = WRITE_SCREEN_ARG_KEY) {
@@ -139,8 +143,11 @@ fun NavGraphBuilder.writeRoute(
             defaultValue = null
         })
     ) {
+        val pagerState = rememberPagerState(pageCount = { Mood.entries.size })
+
         WriteScreen(
             selectedDiary = null,
+            pagerState = pagerState,
             onBackPressed = onBackPressed,
             onDeleteConfirm = {
 
