@@ -69,19 +69,59 @@ class WriteViewModel(
         uiState = uiState.copy(mood = mood)
     }
 
-    fun insertDiary(
+    fun upsertDiary(
         diary: Diary,
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = MongoDb.insertNewDiary(diary = diary)
-            withContext(Dispatchers.Main) {
-                when (result) {
-                    is RequestState.Success -> onSuccess()
-                    is RequestState.Error -> onError(result.error.message.toString())
-                    else -> Unit
-                }
+            if (uiState.selectedDiaryId != null) {
+                updateDiary(
+                    diary = diary,
+                    onSuccess = onSuccess,
+                    onError = onError
+                )
+            } else {
+                insertDiary(
+                    diary = diary,
+                    onSuccess = onSuccess,
+                    onError = onError
+                )
+            }
+        }
+    }
+
+    private suspend fun insertDiary(
+        diary: Diary,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val result = MongoDb.insertNewDiary(diary = diary)
+        withContext(Dispatchers.Main) {
+            when (result) {
+                is RequestState.Success -> onSuccess()
+                is RequestState.Error -> onError(result.error.message.toString())
+                else -> Unit
+            }
+        }
+    }
+
+    private suspend fun updateDiary(
+        diary: Diary,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val result = MongoDb.updateDiary(
+            diary = diary.apply {
+                _id = ObjectId.Companion.from(uiState.selectedDiaryId!!)
+                date = uiState.selectedDiary!!.date
+            }
+        )
+        withContext(Dispatchers.Main) {
+            when (result) {
+                is RequestState.Success -> onSuccess()
+                is RequestState.Error -> onError(result.error.message.toString())
+                else -> Unit
             }
         }
     }
