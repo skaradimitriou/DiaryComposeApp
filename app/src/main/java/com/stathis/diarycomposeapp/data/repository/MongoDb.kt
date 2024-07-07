@@ -29,15 +29,13 @@ object MongoDb : MongoRepository {
 
     override fun configureTheRealm() {
         if (user != null) {
-            val config = SyncConfiguration.Builder(user, setOf(Diary::class))
-                .initialSubscriptions { sub ->
+            val config =
+                SyncConfiguration.Builder(user, setOf(Diary::class)).initialSubscriptions { sub ->
                     add(
                         query = sub.query<Diary>("ownerId == $0", user.identity),
                         name = "User's Diaries"
                     )
-                }
-                .log(LogLevel.ALL)
-                .build()
+                }.log(LogLevel.ALL).build()
 
             realm = Realm.open(config)
         }
@@ -47,16 +45,10 @@ object MongoDb : MongoRepository {
         return if (user != null) {
             try {
                 realm.query<Diary>(query = "ownerId == $0", user.identity)
-                    .sort(property = "date", sortOrder = Sort.DESCENDING)
-                    .asFlow()
-                    .map { result ->
-                        RequestState.Success(
-                            data = result.list.groupBy {
-                                it.date.toInstant()
-                                    .atZone(ZoneId.systemDefault())
-                                    .toLocalDate()
-                            }
-                        )
+                    .sort(property = "date", sortOrder = Sort.DESCENDING).asFlow().map { result ->
+                        RequestState.Success(data = result.list.groupBy {
+                            it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+                        })
                     }
             } catch (e: Exception) {
                 flow { emit(RequestState.Error(e)) }
@@ -66,13 +58,29 @@ object MongoDb : MongoRepository {
         }
     }
 
-    override fun getSelectedDiary(diaryId: ObjectId): RequestState<Diary> {
-        return if (user != null) {
+    override fun getSelectedDiary(diaryId: ObjectId): Flow<RequestState<Diary>> = flow {
+        if (user != null) {
             try {
-                val diary = realm.query<Diary>(query = "_id == $0", diaryId).find().first()
-                return RequestState.Success(data = diary)
+                realm.query<Diary>(query = "_id == $0", diaryId).asFlow().map {
+                    RequestState.Success(data = it.list.first())
+                }
             } catch (e: Exception) {
-                RequestState.Error(e)
+                emit(RequestState.Error(e))
+            }
+        } else {
+            emit(RequestState.Error(UserNotAuthenticatedException()))
+        }
+    }
+
+    override suspend fun insertNewDiary(diary: Diary): RequestState<Diary> {
+        return if (user != null) {
+            realm.write {
+                try {
+                    val addedDiary = copyToRealm(diary.apply { ownerId = user.identity })
+                    RequestState.Success(data = addedDiary)
+                } catch (e: Exception) {
+                    RequestState.Error(e)
+                }
             }
         } else {
             RequestState.Error(UserNotAuthenticatedException())

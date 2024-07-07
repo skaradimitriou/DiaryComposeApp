@@ -1,5 +1,6 @@
 package com.stathis.diarycomposeapp.presentation.screens.write
 
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,19 +32,24 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.stathis.diarycomposeapp.model.Diary
 import com.stathis.diarycomposeapp.model.Mood
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun WriteContent(
+    uiState: UiState,
     paddingValues: PaddingValues,
     title: String,
     onTitleChanged: (String) -> Unit,
     description: String,
     onDescriptionChanged: (String) -> Unit,
-    pagerState: PagerState
+    pagerState: PagerState,
+    onSaveBtnClick: (Diary) -> Unit
 ) {
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -121,7 +127,20 @@ fun WriteContent(
                     .height(54.dp),
                 shape = Shapes().small,
                 onClick = {
-                    //
+                    if (uiState.title.isNotEmpty() && uiState.description.isNotEmpty()) {
+                        onSaveBtnClick(
+                            Diary().apply {
+                                this.title = uiState.title
+                                this.description = uiState.description
+                            }
+                        )
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Fields cannot be empty",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             ) {
                 Text(text = "Save")
