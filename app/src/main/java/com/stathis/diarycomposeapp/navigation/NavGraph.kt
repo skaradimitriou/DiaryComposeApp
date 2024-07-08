@@ -182,8 +182,11 @@ fun NavGraphBuilder.writeRoute(
                 viewModel.upsertDiary(
                     diary = it.apply { mood = Mood.entries[pageNumber].name },
                     onSuccess = onBackPressed,
-                    onError = {}
+                    onError = {},
                 )
+            },
+            onDateTimeUpdated = {
+                viewModel.updateDateTime(zonedDateTime = it)
             }
         )
     }

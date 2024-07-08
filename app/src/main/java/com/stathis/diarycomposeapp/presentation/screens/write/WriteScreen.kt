@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import com.stathis.diarycomposeapp.model.Diary
 import com.stathis.diarycomposeapp.model.Mood
+import java.time.LocalDateTime
+import java.time.ZonedDateTime
 
 @OptIn(ExperimentalFoundationApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -20,6 +22,7 @@ fun WriteScreen(
     onDescriptionChanged: (String) -> Unit,
     onBackPressed: () -> Unit,
     onDeleteConfirm: () -> Unit,
+    onDateTimeUpdated : (ZonedDateTime) -> Unit,
     onSaveBtnClick : (Diary) -> Unit
 ) {
     LaunchedEffect(key1 = uiState.mood) {
@@ -32,7 +35,8 @@ fun WriteScreen(
                 selectedDiary = uiState.selectedDiary,
                 moodName = moodName,
                 onBackPressed = onBackPressed,
-                onDeleteConfirm = onDeleteConfirm
+                onDeleteConfirm = onDeleteConfirm,
+                onUpdatedDateTime = onDateTimeUpdated
             )
         },
         content = {

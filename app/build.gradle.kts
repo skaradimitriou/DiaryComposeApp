@@ -87,6 +87,10 @@ dependencies {
     implementation(libs.realm.sync)
     implementation(libs.realm.coroutines)
 
+    implementation(libs.dateTimePicker.core)
+    implementation(libs.dateTimePicker.calendar)
+    implementation(libs.dateTimePicker.clock)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
