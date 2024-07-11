@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.stathis.diarycomposeapp.data.repository.MongoDb
 import com.stathis.diarycomposeapp.model.Diary
 import com.stathis.diarycomposeapp.model.Mood
-import com.stathis.diarycomposeapp.util.RequestState
+import com.stathis.diarycomposeapp.model.RequestState
 import com.stathis.diarycomposeapp.util.WRITE_SCREEN_ARG_KEY
 import com.stathis.diarycomposeapp.util.toRealmInstant
 import io.realm.kotlin.types.ObjectId

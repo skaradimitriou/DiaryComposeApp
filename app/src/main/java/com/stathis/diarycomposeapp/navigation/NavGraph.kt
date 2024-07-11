@@ -25,14 +25,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.stathis.diarycomposeapp.data.repository.MongoDb
+import com.stathis.diarycomposeapp.model.GalleryImage
 import com.stathis.diarycomposeapp.model.Mood
+import com.stathis.diarycomposeapp.model.RequestState
+import com.stathis.diarycomposeapp.model.rememberGalleryState
 import com.stathis.diarycomposeapp.presentation.components.DisplayAlertDialog
 import com.stathis.diarycomposeapp.presentation.screens.auth.AuthenticationScreen
 import com.stathis.diarycomposeapp.presentation.screens.home.HomeScreen
 import com.stathis.diarycomposeapp.presentation.screens.home.HomeViewModel
 import com.stathis.diarycomposeapp.presentation.screens.write.WriteScreen
 import com.stathis.diarycomposeapp.presentation.screens.write.WriteViewModel
-import com.stathis.diarycomposeapp.util.RequestState
 import com.stathis.diarycomposeapp.util.WRITE_SCREEN_ARG_KEY
 import kotlinx.coroutines.launch
 
@@ -157,6 +159,7 @@ fun NavGraphBuilder.writeRoute(
         val viewModel: WriteViewModel = viewModel()
         val uiState = viewModel.uiState
         val pagerState = rememberPagerState(pageCount = { Mood.entries.size })
+        val galleryState = rememberGalleryState()
         val pageNumber by remember {
             derivedStateOf { pagerState.currentPage }
         }
@@ -171,6 +174,7 @@ fun NavGraphBuilder.writeRoute(
                 Mood.entries[pageNumber].name
             },
             pagerState = pagerState,
+            galleryState = galleryState,
             onTitleChanged = {
                 viewModel.setTitle(title = it)
             },
@@ -212,6 +216,9 @@ fun NavGraphBuilder.writeRoute(
             },
             onDateTimeUpdated = {
                 viewModel.updateDateTime(zonedDateTime = it)
+            },
+            onImageSelect = {
+                galleryState.addImage(GalleryImage(image = it, remoteImagePath = ""))
             }
         )
     }

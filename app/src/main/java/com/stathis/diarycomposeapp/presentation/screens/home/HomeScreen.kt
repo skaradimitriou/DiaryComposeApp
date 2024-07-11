@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.stathis.diarycomposeapp.R
 import com.stathis.diarycomposeapp.data.repository.Diaries
-import com.stathis.diarycomposeapp.util.RequestState
+import com.stathis.diarycomposeapp.model.RequestState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)

@@ -1,5 +1,6 @@
 package com.stathis.diarycomposeapp.presentation.screens.write
 
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -39,7 +40,9 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.stathis.diarycomposeapp.model.Diary
+import com.stathis.diarycomposeapp.model.GalleryState
 import com.stathis.diarycomposeapp.model.Mood
+import com.stathis.diarycomposeapp.presentation.components.GalleryUploader
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
@@ -52,6 +55,8 @@ fun WriteContent(
     description: String,
     onDescriptionChanged: (String) -> Unit,
     pagerState: PagerState,
+    galleryState: GalleryState,
+    onImageSelect: (Uri) -> Unit,
     onSaveBtnClick: (Diary) -> Unit
 ) {
     val scrollState = rememberScrollState()
@@ -142,6 +147,14 @@ fun WriteContent(
         Column(
             verticalArrangement = Arrangement.Bottom
         ) {
+            Spacer(modifier = Modifier.height(12.dp))
+            GalleryUploader(
+                galleryState = galleryState,
+                onAddClicked = {},
+                onImageSelect = onImageSelect,
+                onImageClicked = {}
+
+            )
             Spacer(modifier = Modifier.height(12.dp))
             Button(
                 modifier = Modifier

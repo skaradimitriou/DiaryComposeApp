@@ -2,7 +2,7 @@ package com.stathis.diarycomposeapp.data.repository
 
 import com.stathis.diarycomposeapp.model.Diary
 import com.stathis.diarycomposeapp.util.APP_ID
-import com.stathis.diarycomposeapp.util.RequestState
+import com.stathis.diarycomposeapp.model.RequestState
 import com.stathis.diarycomposeapp.util.toInstant
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query

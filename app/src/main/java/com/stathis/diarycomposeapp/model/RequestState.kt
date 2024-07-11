@@ -1,4 +1,4 @@
-package com.stathis.diarycomposeapp.util
+package com.stathis.diarycomposeapp.model
 
 sealed class RequestState<out T> {
     data object Idle : RequestState<Nothing>()
