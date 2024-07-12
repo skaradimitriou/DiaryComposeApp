@@ -86,6 +86,12 @@ fun NavGraphBuilder.authenticationRoute(
         AuthenticationScreen(
             onButtonClicked = {
                 goToHomeScreen.invoke()
+            },
+            onSuccessFullAuth = {
+                goToHomeScreen.invoke()
+            },
+            onFailedAuthAttempt = {
+
             }
         )
     }
@@ -219,7 +225,9 @@ fun NavGraphBuilder.writeRoute(
             },
             onImageSelect = {
                 galleryState.addImage(GalleryImage(image = it, remoteImagePath = ""))
-            }
+            },
+
+            onAddBtnClicked = {}
         )
     }
 }

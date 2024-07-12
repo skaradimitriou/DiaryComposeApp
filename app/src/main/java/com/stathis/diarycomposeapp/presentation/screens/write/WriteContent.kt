@@ -150,7 +150,9 @@ fun WriteContent(
             Spacer(modifier = Modifier.height(12.dp))
             GalleryUploader(
                 galleryState = galleryState,
-                onAddClicked = {},
+                onAddClicked = {
+                    focusManager.clearFocus()
+                },
                 onImageSelect = onImageSelect,
                 onImageClicked = {}
 
