@@ -43,6 +43,7 @@ import com.stathis.diarycomposeapp.model.Diary
 import com.stathis.diarycomposeapp.model.GalleryState
 import com.stathis.diarycomposeapp.model.Mood
 import com.stathis.diarycomposeapp.presentation.components.GalleryUploader
+import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
@@ -169,6 +170,9 @@ fun WriteContent(
                             Diary().apply {
                                 this.title = uiState.title
                                 this.description = uiState.description
+                                this.images = galleryState.images.map {
+                                    it.remoteImagePath
+                                }.toRealmList()
                             }
                         )
                     } else {

@@ -25,10 +25,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.stathis.diarycomposeapp.data.repository.MongoDb
-import com.stathis.diarycomposeapp.model.GalleryImage
 import com.stathis.diarycomposeapp.model.Mood
 import com.stathis.diarycomposeapp.model.RequestState
-import com.stathis.diarycomposeapp.model.rememberGalleryState
 import com.stathis.diarycomposeapp.presentation.components.DisplayAlertDialog
 import com.stathis.diarycomposeapp.presentation.screens.auth.AuthenticationScreen
 import com.stathis.diarycomposeapp.presentation.screens.home.HomeScreen
@@ -165,7 +163,7 @@ fun NavGraphBuilder.writeRoute(
         val viewModel: WriteViewModel = viewModel()
         val uiState = viewModel.uiState
         val pagerState = rememberPagerState(pageCount = { Mood.entries.size })
-        val galleryState = rememberGalleryState()
+        val galleryState = viewModel.galleryState
         val pageNumber by remember {
             derivedStateOf { pagerState.currentPage }
         }
@@ -224,7 +222,11 @@ fun NavGraphBuilder.writeRoute(
                 viewModel.updateDateTime(zonedDateTime = it)
             },
             onImageSelect = {
-                galleryState.addImage(GalleryImage(image = it, remoteImagePath = ""))
+                val type = context.contentResolver.getType(it)?.split("/")?.last() ?: "jpg"
+                viewModel.addImage(
+                    image = it,
+                    imageType = type
+                )
             },
 
             onAddBtnClicked = {}

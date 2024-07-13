@@ -1,13 +1,18 @@
 package com.stathis.diarycomposeapp.presentation.screens.write
 
+import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import com.stathis.diarycomposeapp.data.repository.MongoDb
 import com.stathis.diarycomposeapp.model.Diary
+import com.stathis.diarycomposeapp.model.GalleryImage
+import com.stathis.diarycomposeapp.model.GalleryState
 import com.stathis.diarycomposeapp.model.Mood
 import com.stathis.diarycomposeapp.model.RequestState
 import com.stathis.diarycomposeapp.util.WRITE_SCREEN_ARG_KEY
@@ -23,6 +28,8 @@ import java.time.ZonedDateTime
 class WriteViewModel(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+
+    val galleryState = GalleryState()
 
     var uiState by mutableStateOf(UiState())
         private set
@@ -113,7 +120,11 @@ class WriteViewModel(
         })
         withContext(Dispatchers.Main) {
             when (result) {
-                is RequestState.Success -> onSuccess()
+                is RequestState.Success -> {
+                    uploadImagesToFirebase()
+                    onSuccess()
+                }
+
                 is RequestState.Error -> onError(result.error.message.toString())
                 else -> Unit
             }
@@ -137,7 +148,11 @@ class WriteViewModel(
         )
         withContext(Dispatchers.Main) {
             when (result) {
-                is RequestState.Success -> onSuccess()
+                is RequestState.Success -> {
+                    uploadImagesToFirebase()
+                    onSuccess()
+                }
+
                 is RequestState.Error -> onError(result.error.message.toString())
                 else -> Unit
             }
@@ -167,6 +182,27 @@ class WriteViewModel(
                     else -> Unit
                 }
             }
+        }
+    }
+
+    fun addImage(image: Uri, imageType: String) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        val imageName = image.lastPathSegment
+        val currentTime = System.currentTimeMillis()
+        val remoteImagePath = "images/$uid/$imageName-$currentTime.$imageType"
+        galleryState.addImage(
+            GalleryImage(
+                image = image,
+                remoteImagePath = remoteImagePath
+            )
+        )
+    }
+
+    private fun uploadImagesToFirebase() {
+        val storage = FirebaseStorage.getInstance().reference
+        galleryState.images.forEach { galleryImage ->
+            val imagePath = storage.child(galleryImage.remoteImagePath)
+            imagePath.putFile(galleryImage.image)
         }
     }
 }
