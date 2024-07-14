@@ -46,7 +46,7 @@ import kotlin.math.max
 @Composable
 fun Gallery(
     modifier: Modifier = Modifier,
-    images: List<String>,
+    images: List<Uri>,
     imageSize: Dp = 40.dp,
     spaceBetween: Dp = 10.dp,
     imageShape: CornerBasedShape = Shapes().small
@@ -77,6 +77,7 @@ fun Gallery(
                         .data(image)
                         .crossfade(true)
                         .build(),
+                    contentScale = ContentScale.Crop,
                     contentDescription = "Gallery Image"
                 )
                 Spacer(modifier = Modifier.width(spaceBetween))
@@ -223,8 +224,6 @@ fun LastImageOverlay(
 @Composable
 fun GalleryPreview() {
     Gallery(
-        images = listOf(
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1024px-Google_%22G%22_logo.svg.png"
-        )
+        images = listOf()
     )
 }

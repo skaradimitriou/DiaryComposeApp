@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.lifecycleRuntimeCompose)
 
     implementation(libs.hilt.android)
+    implementation(libs.hilt.compose)
     ksp(libs.hilt.compiler)
 
     implementation(libs.room.runtime)
