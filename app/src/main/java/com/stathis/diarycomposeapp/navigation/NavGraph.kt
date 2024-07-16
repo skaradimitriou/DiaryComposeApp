@@ -230,7 +230,8 @@ fun NavGraphBuilder.writeRoute(
                 )
             },
 
-            onAddBtnClicked = {}
+            onAddBtnClicked = {},
+            onImageDeleteClicked = { galleryState.removeImage(it) }
         )
     }
 }

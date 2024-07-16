@@ -14,11 +14,13 @@ import com.stathis.diarycomposeapp.navigation.Screen
 import com.stathis.diarycomposeapp.navigation.SetupNavGraph
 import com.stathis.diarycomposeapp.ui.theme.DiaryComposeAppTheme
 import com.stathis.diarycomposeapp.util.retryUploadingImageToFirebase
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     @Inject
