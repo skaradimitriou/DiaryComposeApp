@@ -30,4 +30,8 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideFirstDao(db: ImagesDatabase) = db.imageToUploadDao()
+
+    @Provides
+    @Singleton
+    fun provideSecondDao(db: ImagesDatabase) = db.imageToDeleteDao()
 }

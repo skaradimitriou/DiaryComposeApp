@@ -11,7 +11,9 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.storage.FirebaseStorage
+import com.stathis.diarycomposeapp.data.database.ImageToDeleteDao
 import com.stathis.diarycomposeapp.data.database.ImagesToUploadDao
+import com.stathis.diarycomposeapp.data.database.entity.ImageToDelete
 import com.stathis.diarycomposeapp.data.database.entity.ImageToUpload
 import com.stathis.diarycomposeapp.data.repository.MongoDb
 import com.stathis.diarycomposeapp.model.Diary
@@ -35,7 +37,8 @@ import javax.inject.Inject
 @HiltViewModel
 class WriteViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val imagesToUploadDao: ImagesToUploadDao
+    private val imagesToUploadDao: ImagesToUploadDao,
+    private val imagesToDeleteDao: ImageToDeleteDao
 ) : ViewModel() {
 
     val galleryState = GalleryState()
@@ -255,9 +258,26 @@ class WriteViewModel @Inject constructor(
         val storage = FirebaseStorage.getInstance().reference
         images?.forEach { remoteImage ->
             storage.child(remoteImage).delete()
+                .addOnFailureListener {
+                    viewModelScope.launch(Dispatchers.IO) {
+                        imagesToDeleteDao.addImageToDelete(
+                            ImageToDelete(
+                                remoteImagePath = remoteImage
+                            )
+                        )
+                    }
+                }
         } ?: run {
-            galleryState.imagesToBeDeleted.map { it.remoteImagePath }.forEach {
-                storage.child(it).delete()
+            galleryState.imagesToBeDeleted.map { it.remoteImagePath }.forEach { remotePath ->
+                storage.child(remotePath).delete().addOnFailureListener {
+                    viewModelScope.launch(Dispatchers.IO) {
+                        imagesToDeleteDao.addImageToDelete(
+                            ImageToDelete(
+                                remoteImagePath = remotePath
+                            )
+                        )
+                    }
+                }
             }
         }
     }

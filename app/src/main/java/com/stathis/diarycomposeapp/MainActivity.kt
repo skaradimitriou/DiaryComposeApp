@@ -9,10 +9,12 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.FirebaseApp
+import com.stathis.diarycomposeapp.data.database.ImageToDeleteDao
 import com.stathis.diarycomposeapp.data.database.ImagesToUploadDao
 import com.stathis.diarycomposeapp.navigation.Screen
 import com.stathis.diarycomposeapp.navigation.SetupNavGraph
 import com.stathis.diarycomposeapp.ui.theme.DiaryComposeAppTheme
+import com.stathis.diarycomposeapp.util.retryDeleteImageToFirebase
 import com.stathis.diarycomposeapp.util.retryUploadingImageToFirebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -25,6 +27,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var imagesToUploadDao: ImagesToUploadDao
+
+    @Inject
+    lateinit var imageToDeleteDao: ImageToDeleteDao
 
     private var keepSplashOpened = true
 
@@ -68,6 +73,18 @@ class MainActivity : ComponentActivity() {
                     onSuccess = {
                         scope.launch(Dispatchers.IO) {
                             imagesToUploadDao.cleanupImage(imageToUpload.id)
+                        }
+                    }
+                )
+            }
+
+            val result2 = imageToDeleteDao.getAllImages()
+            result2.forEach { imageToDelete ->
+                retryDeleteImageToFirebase(
+                    imageToDelete = imageToDelete,
+                    onSuccess = {
+                        scope.launch(Dispatchers.IO) {
+                            imagesToUploadDao.cleanupImage(imageToDelete.id)
                         }
                     }
                 )
