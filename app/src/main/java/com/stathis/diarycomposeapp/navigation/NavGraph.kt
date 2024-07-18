@@ -18,7 +18,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -103,11 +102,13 @@ fun NavGraphBuilder.homeRoute(
     onDataLoaded: () -> Unit
 ) {
     composable(route = Screen.Home.route) {
-        val viewModel: HomeViewModel = viewModel()
+        val viewModel: HomeViewModel = hiltViewModel()
+        val context = LocalContext.current
         val diaries by viewModel.diaries
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         val scope = rememberCoroutineScope()
         var dialogOpened by remember { mutableStateOf(false) }
+        var deleteAllDialogOpened by remember { mutableStateOf(false) }
 
         LaunchedEffect(key1 = diaries) {
             if (diaries !is RequestState.Loading) {
@@ -125,6 +126,9 @@ fun NavGraphBuilder.homeRoute(
             },
             onSignOutClick = {
                 dialogOpened = true
+            },
+            onDeleteAllClicked = {
+                deleteAllDialogOpened = true
             },
             onNavigateToWriteScreen = navigateToWrite,
             navigateToWriteWithArgs = navigateToWriteWithArgs
@@ -144,6 +148,44 @@ fun NavGraphBuilder.homeRoute(
             },
             closeDialog = {
                 dialogOpened = false
+            })
+
+        DisplayAlertDialog(
+            title = "Delete All Diaries",
+            message = "Are you sure you want to permantently delete all your diaries?",
+            dialogOpened = deleteAllDialogOpened,
+            onYesClicked = {
+                viewModel.deleteAllDiaries(
+                    onSuccess = {
+                        scope.launch {
+                            Toast.makeText(
+                                context,
+                                "XXX",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            drawerState.close()
+                        }
+                    },
+                    onError = {
+                        val message = if (it.message == "No Internet connection.") {
+                            "We need internet to perform this action."
+                        } else {
+                            it.message
+                        }
+
+                        scope.launch {
+                            Toast.makeText(
+                                context,
+                                "$message",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            drawerState.close()
+                        }
+                    }
+                )
+            },
+            closeDialog = {
+                deleteAllDialogOpened = false
             })
     }
 }

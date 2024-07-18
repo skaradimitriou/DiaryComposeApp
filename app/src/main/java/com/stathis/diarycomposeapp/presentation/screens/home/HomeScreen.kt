@@ -16,12 +16,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
@@ -52,6 +54,7 @@ fun HomeScreen(
     drawerState: DrawerState,
     onMenuClicked: () -> Unit,
     onSignOutClick: () -> Unit,
+    onDeleteAllClicked: () -> Unit,
     onNavigateToWriteScreen: () -> Unit,
     navigateToWriteWithArgs: (String) -> Unit
 ) {
@@ -60,7 +63,8 @@ fun HomeScreen(
 
     NavigationDrawer(
         drawerState = drawerState,
-        onSignOutClick = onSignOutClick
+        onSignOutClick = onSignOutClick,
+        onDeleteAllClicked = onDeleteAllClicked
     ) {
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -122,6 +126,7 @@ fun HomeScreen(
 fun NavigationDrawer(
     drawerState: DrawerState,
     onSignOutClick: () -> Unit,
+    onDeleteAllClicked: () -> Unit,
     content: @Composable () -> Unit
 ) {
     ModalNavigationDrawer(
@@ -152,6 +157,19 @@ fun NavigationDrawer(
                                 Text(text = "Sign Out")
                             }
                         }, selected = false, onClick = onSignOutClick
+                    )
+                    NavigationDrawerItem(
+                        label = {
+                            Row(modifier = Modifier.padding(12.dp)) {
+                                Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = "Delete All Icon",
+                                    tint = MaterialTheme.colorScheme.onSurface
+                                )
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Text(text = "Delete All Diaries")
+                            }
+                        }, selected = false, onClick = onDeleteAllClicked
                     )
                 }
             )

@@ -24,7 +24,7 @@ object DatabaseModule {
             context = context,
             klass = ImagesDatabase::class.java,
             name = IMAGES_DATABASE
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides

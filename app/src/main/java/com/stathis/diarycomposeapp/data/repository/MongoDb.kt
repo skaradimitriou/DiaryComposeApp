@@ -1,8 +1,8 @@
 package com.stathis.diarycomposeapp.data.repository
 
 import com.stathis.diarycomposeapp.model.Diary
-import com.stathis.diarycomposeapp.util.APP_ID
 import com.stathis.diarycomposeapp.model.RequestState
+import com.stathis.diarycomposeapp.util.APP_ID
 import com.stathis.diarycomposeapp.util.toInstant
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
@@ -121,6 +121,22 @@ object MongoDb : MongoRepository {
                     }
                 } else {
                     RequestState.Error(error = Exception("Queried Diary does not exist."))
+                }
+            }
+        } else {
+            RequestState.Error(UserNotAuthenticatedException())
+        }
+    }
+
+    override suspend fun deleteAllDiaries(): RequestState<Boolean> {
+        return if (user != null) {
+            realm.write {
+                val diaries = query<Diary>(query = "ownerId = $0", user.identity).find()
+                try {
+                    delete(diaries)
+                    RequestState.Success(true)
+                } catch (e: Exception) {
+                    RequestState.Error(e)
                 }
             }
         } else {
