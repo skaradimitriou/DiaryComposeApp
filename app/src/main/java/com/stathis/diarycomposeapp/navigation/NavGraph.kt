@@ -124,6 +124,11 @@ fun NavGraphBuilder.homeRoute(
                     drawerState.open()
                 }
             },
+            dateIsSelected = viewModel.dateIsSelected,
+            onDateSelected = { viewModel.getDiaries(it) },
+            onDateReset = {
+                viewModel.getDiaries()
+            },
             onSignOutClick = {
                 dialogOpened = true
             },

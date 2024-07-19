@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import com.stathis.diarycomposeapp.R
 import com.stathis.diarycomposeapp.data.repository.Diaries
 import com.stathis.diarycomposeapp.model.RequestState
+import java.time.ZonedDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -53,6 +54,9 @@ fun HomeScreen(
     diaries: Diaries,
     drawerState: DrawerState,
     onMenuClicked: () -> Unit,
+    dateIsSelected: Boolean,
+    onDateSelected: (ZonedDateTime) -> Unit,
+    onDateReset: () -> Unit,
     onSignOutClick: () -> Unit,
     onDeleteAllClicked: () -> Unit,
     onNavigateToWriteScreen: () -> Unit,
@@ -72,7 +76,10 @@ fun HomeScreen(
                 HomeTopBar(
                     scrollBehavior = scrollBehavior,
                     title = "Home Bar Title",
-                    onMenuClick = onMenuClicked
+                    onMenuClick = onMenuClicked,
+                    dateIsSelected = dateIsSelected,
+                    onDateSelected =  onDateSelected,
+                    onDateReset = onDateReset
                 )
             },
             floatingActionButton = {
