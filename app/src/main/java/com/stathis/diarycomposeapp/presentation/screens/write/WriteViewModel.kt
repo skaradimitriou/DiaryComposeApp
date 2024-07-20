@@ -17,8 +17,8 @@ import com.stathis.diarycomposeapp.data.database.entity.ImageToDelete
 import com.stathis.diarycomposeapp.data.database.entity.ImageToUpload
 import com.stathis.diarycomposeapp.data.repository.MongoDb
 import com.stathis.diarycomposeapp.model.Diary
-import com.stathis.diarycomposeapp.model.GalleryImage
-import com.stathis.diarycomposeapp.model.GalleryState
+import com.stathis.ui.GalleryImage
+import com.stathis.ui.GalleryState
 import com.stathis.diarycomposeapp.model.Mood
 import com.stathis.diarycomposeapp.model.RequestState
 import com.stathis.diarycomposeapp.util.WRITE_SCREEN_ARG_KEY

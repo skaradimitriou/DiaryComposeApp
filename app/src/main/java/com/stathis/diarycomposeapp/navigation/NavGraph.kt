@@ -27,7 +27,7 @@ import androidx.navigation.navArgument
 import com.stathis.diarycomposeapp.data.repository.MongoDb
 import com.stathis.diarycomposeapp.model.Mood
 import com.stathis.diarycomposeapp.model.RequestState
-import com.stathis.diarycomposeapp.presentation.components.DisplayAlertDialog
+import com.stathis.ui.components.DisplayAlertDialog
 import com.stathis.diarycomposeapp.presentation.screens.auth.AuthenticationScreen
 import com.stathis.diarycomposeapp.presentation.screens.home.HomeScreen
 import com.stathis.diarycomposeapp.presentation.screens.home.HomeViewModel

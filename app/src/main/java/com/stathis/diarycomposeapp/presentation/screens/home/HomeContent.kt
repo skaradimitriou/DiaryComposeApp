@@ -29,7 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.stathis.diarycomposeapp.model.Diary
-import com.stathis.diarycomposeapp.presentation.components.DiaryHolder
+import com.stathis.ui.components.DiaryHolder
 import java.time.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)

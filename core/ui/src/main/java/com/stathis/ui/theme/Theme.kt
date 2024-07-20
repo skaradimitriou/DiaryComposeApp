@@ -1,4 +1,4 @@
-package com.stathis.diarycomposeapp.ui.theme
+package com.stathis.ui.theme
 
 import android.app.Activity
 import android.os.Build

@@ -1,4 +1,4 @@
-package com.stathis.diarycomposeapp.model
+package com.stathis.ui
 
 import android.net.Uri
 import androidx.compose.runtime.Composable

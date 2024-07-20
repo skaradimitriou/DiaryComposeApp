@@ -1,4 +1,4 @@
-package com.stathis.diarycomposeapp.presentation.components
+package com.stathis.ui.components
 
 import android.net.Uri
 import android.os.Build
@@ -47,7 +47,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.stathis.diarycomposeapp.model.Diary
 import com.stathis.diarycomposeapp.model.Mood
-import com.stathis.diarycomposeapp.ui.theme.Elevation
+import com.stathis.ui.theme.Elevation
 import com.stathis.diarycomposeapp.util.fetchImagesFromFirebase
 import com.stathis.diarycomposeapp.util.toInstant
 import io.realm.kotlin.ext.realmListOf

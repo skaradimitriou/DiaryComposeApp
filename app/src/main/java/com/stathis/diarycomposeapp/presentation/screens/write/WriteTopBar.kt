@@ -31,11 +31,10 @@ import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import com.maxkeppeler.sheets.clock.ClockDialog
 import com.maxkeppeler.sheets.clock.models.ClockSelection
 import com.stathis.diarycomposeapp.model.Diary
-import com.stathis.diarycomposeapp.presentation.components.DisplayAlertDialog
 import com.stathis.diarycomposeapp.util.toInstant
+import com.stathis.ui.components.DisplayAlertDialog
 import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime

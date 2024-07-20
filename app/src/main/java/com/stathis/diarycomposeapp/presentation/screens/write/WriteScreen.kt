@@ -34,9 +34,9 @@ import androidx.compose.ui.window.Dialog
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.stathis.diarycomposeapp.model.Diary
-import com.stathis.diarycomposeapp.model.GalleryImage
-import com.stathis.diarycomposeapp.model.GalleryState
 import com.stathis.diarycomposeapp.model.Mood
+import com.stathis.ui.GalleryImage
+import com.stathis.ui.GalleryState
 import java.time.ZonedDateTime
 
 @OptIn(ExperimentalFoundationApi::class)

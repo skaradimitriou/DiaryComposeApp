@@ -13,7 +13,7 @@ import com.stathis.diarycomposeapp.data.database.ImageToDeleteDao
 import com.stathis.diarycomposeapp.data.database.ImagesToUploadDao
 import com.stathis.diarycomposeapp.navigation.Screen
 import com.stathis.diarycomposeapp.navigation.SetupNavGraph
-import com.stathis.diarycomposeapp.ui.theme.DiaryComposeAppTheme
+import com.stathis.ui.theme.DiaryComposeAppTheme
 import com.stathis.diarycomposeapp.util.retryDeleteImageToFirebase
 import com.stathis.diarycomposeapp.util.retryUploadingImageToFirebase
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.stathis.diarycomposeapp.presentation.components
+package com.stathis.ui.components
 
 import android.net.Uri
 import android.os.Build
@@ -37,9 +37,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.stathis.diarycomposeapp.model.GalleryImage
-import com.stathis.diarycomposeapp.model.GalleryState
-import com.stathis.diarycomposeapp.ui.theme.Elevation
+import com.stathis.ui.GalleryImage
+import com.stathis.ui.GalleryState
+import com.stathis.ui.theme.Elevation
 import kotlin.math.max
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)

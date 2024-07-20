@@ -40,10 +40,10 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.stathis.diarycomposeapp.model.Diary
-import com.stathis.diarycomposeapp.model.GalleryImage
-import com.stathis.diarycomposeapp.model.GalleryState
 import com.stathis.diarycomposeapp.model.Mood
-import com.stathis.diarycomposeapp.presentation.components.GalleryUploader
+import com.stathis.ui.GalleryImage
+import com.stathis.ui.GalleryState
+import com.stathis.ui.components.GalleryUploader
 import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch
 
@@ -59,7 +59,7 @@ fun WriteContent(
     pagerState: PagerState,
     galleryState: GalleryState,
     onImageSelect: (Uri) -> Unit,
-    onImageClicked : (GalleryImage) -> Unit,
+    onImageClicked: (GalleryImage) -> Unit,
     onSaveBtnClick: (Diary) -> Unit
 ) {
     val scrollState = rememberScrollState()
