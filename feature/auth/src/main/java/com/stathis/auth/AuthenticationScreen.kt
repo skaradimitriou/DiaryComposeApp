@@ -1,4 +1,4 @@
-package com.stathis.diarycomposeapp.presentation.screens.auth
+package com.stathis.auth
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background

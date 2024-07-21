@@ -24,12 +24,12 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.stathis.mongo.repository.MongoDb
-import com.stathis.diarycomposeapp.presentation.screens.auth.AuthenticationScreen
+import com.stathis.auth.navigation.authenticationRoute
 import com.stathis.diarycomposeapp.presentation.screens.home.HomeScreen
 import com.stathis.diarycomposeapp.presentation.screens.home.HomeViewModel
 import com.stathis.diarycomposeapp.presentation.screens.write.WriteScreen
 import com.stathis.diarycomposeapp.presentation.screens.write.WriteViewModel
+import com.stathis.mongo.repository.MongoDb
 import com.stathis.ui.components.DisplayAlertDialog
 import com.stathis.util.Screen
 import com.stathis.util.WRITE_SCREEN_ARG_KEY
@@ -68,29 +68,6 @@ fun SetupNavGraph(
         writeRoute(
             onBackPressed = {
                 navController.popBackStack()
-            }
-        )
-    }
-}
-
-fun NavGraphBuilder.authenticationRoute(
-    goToHomeScreen: () -> Unit,
-    onDataLoaded: () -> Unit
-) {
-    composable(route = Screen.Authentication.route) {
-        LaunchedEffect(key1 = Unit) {
-            onDataLoaded()
-        }
-
-        AuthenticationScreen(
-            onButtonClicked = {
-                goToHomeScreen.invoke()
-            },
-            onSuccessFullAuth = {
-                goToHomeScreen.invoke()
-            },
-            onFailedAuthAttempt = {
-
             }
         )
     }

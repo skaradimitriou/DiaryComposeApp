@@ -157,7 +157,7 @@ fun NavigationDrawer(
                         label = {
                             Row(modifier = Modifier.padding(12.dp)) {
                                 Image(
-                                    painter = painterResource(R.drawable.google_logo),
+                                    painter = painterResource(com.stathis.util.R.drawable.google_logo),
                                     contentDescription = "Google logo"
                                 )
                                 Spacer(modifier = Modifier.width(12.dp))
