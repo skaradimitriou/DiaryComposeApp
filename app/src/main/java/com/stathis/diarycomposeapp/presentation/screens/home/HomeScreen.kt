@@ -42,8 +42,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.stathis.diarycomposeapp.R
-import com.stathis.diarycomposeapp.data.repository.Diaries
-import com.stathis.diarycomposeapp.model.RequestState
+import com.stathis.mongo.repository.Diaries
+import com.stathis.util.model.RequestState
 import java.time.ZonedDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)

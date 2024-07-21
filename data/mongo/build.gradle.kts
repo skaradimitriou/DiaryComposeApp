@@ -1,10 +1,13 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.realm)
 }
 
 android {
-    namespace = "com.stathis.ui"
+    namespace = "com.stathis.mongo"
     compileSdk = 34
 
     defaultConfig {
@@ -30,13 +33,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
-    }
 }
 
 dependencies {
@@ -44,13 +40,17 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.material3)
 
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.ui.graphics)
+    implementation(project(":core:util"))
+
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.compose)
+    ksp(libs.hilt.compiler)
+
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
     implementation(libs.realm.base)
     implementation(libs.realm.sync)

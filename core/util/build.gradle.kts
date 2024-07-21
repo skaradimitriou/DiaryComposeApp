@@ -1,10 +1,12 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "com.stathis.ui"
+    namespace = "com.stathis.util"
     compileSdk = 34
 
     defaultConfig {
@@ -30,7 +32,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
     buildFeatures {
         compose = true
     }
@@ -52,9 +53,19 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.ui.graphics)
 
+    implementation(project(":core:ui"))
+
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.compose)
+    ksp(libs.hilt.compiler)
+
     implementation(libs.realm.base)
     implementation(libs.realm.sync)
     implementation(libs.realm.coroutines)
+
+    implementation(libs.firebase.storage)
+
+    implementation(libs.coil)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

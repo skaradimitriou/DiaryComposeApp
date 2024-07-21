@@ -24,16 +24,17 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.stathis.diarycomposeapp.data.repository.MongoDb
-import com.stathis.diarycomposeapp.model.Mood
-import com.stathis.diarycomposeapp.model.RequestState
-import com.stathis.ui.components.DisplayAlertDialog
+import com.stathis.mongo.repository.MongoDb
 import com.stathis.diarycomposeapp.presentation.screens.auth.AuthenticationScreen
 import com.stathis.diarycomposeapp.presentation.screens.home.HomeScreen
 import com.stathis.diarycomposeapp.presentation.screens.home.HomeViewModel
 import com.stathis.diarycomposeapp.presentation.screens.write.WriteScreen
 import com.stathis.diarycomposeapp.presentation.screens.write.WriteViewModel
-import com.stathis.diarycomposeapp.util.WRITE_SCREEN_ARG_KEY
+import com.stathis.ui.components.DisplayAlertDialog
+import com.stathis.util.Screen
+import com.stathis.util.WRITE_SCREEN_ARG_KEY
+import com.stathis.util.model.Mood
+import com.stathis.util.model.RequestState
 import kotlinx.coroutines.launch
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)

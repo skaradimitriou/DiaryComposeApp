@@ -39,11 +39,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.stathis.diarycomposeapp.model.Diary
-import com.stathis.diarycomposeapp.model.Mood
+import com.stathis.util.model.Diary
+import com.stathis.util.model.Mood
 import com.stathis.ui.GalleryImage
 import com.stathis.ui.GalleryState
-import com.stathis.ui.components.GalleryUploader
+import com.stathis.util.GalleryUploader
 import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch
 

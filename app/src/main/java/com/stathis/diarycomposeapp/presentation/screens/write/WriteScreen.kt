@@ -33,8 +33,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.stathis.diarycomposeapp.model.Diary
-import com.stathis.diarycomposeapp.model.Mood
+import com.stathis.util.model.Diary
+import com.stathis.util.model.Mood
 import com.stathis.ui.GalleryImage
 import com.stathis.ui.GalleryState
 import java.time.ZonedDateTime

@@ -66,6 +66,8 @@ dependencies {
     implementation(libs.androidx.material3)
 
     implementation(project(":core:ui"))
+    implementation(project(":core:util"))
+    implementation(project(":data:mongo"))
 
     implementation(libs.coil)
     implementation(libs.navigation)

@@ -5,17 +5,20 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
+import androidx.core.net.toUri
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.FirebaseApp
-import com.stathis.diarycomposeapp.data.database.ImageToDeleteDao
-import com.stathis.diarycomposeapp.data.database.ImagesToUploadDao
-import com.stathis.diarycomposeapp.navigation.Screen
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.storageMetadata
 import com.stathis.diarycomposeapp.navigation.SetupNavGraph
+import com.stathis.mongo.database.ImageToDeleteDao
+import com.stathis.mongo.database.ImagesToUploadDao
+import com.stathis.mongo.database.entity.ImageToDelete
+import com.stathis.mongo.database.entity.ImageToUpload
 import com.stathis.ui.theme.DiaryComposeAppTheme
-import com.stathis.diarycomposeapp.util.retryDeleteImageToFirebase
-import com.stathis.diarycomposeapp.util.retryUploadingImageToFirebase
+import com.stathis.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -90,5 +93,27 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+    }
+
+    private fun retryUploadingImageToFirebase(
+        imageToUpload: ImageToUpload,
+        onSuccess: () -> Unit
+    ) {
+        val storage = FirebaseStorage.getInstance().reference
+        storage.child(imageToUpload.remoteImagePath).putFile(
+            imageToUpload.imageUri.toUri(),
+            storageMetadata { },
+            imageToUpload.sessionUri.toUri()
+        ).addOnSuccessListener { onSuccess() }
+    }
+
+    private fun retryDeleteImageToFirebase(
+        imageToDelete: ImageToDelete,
+        onSuccess: () -> Unit
+    ) {
+        val storage = FirebaseStorage.getInstance().reference
+        storage.child(imageToDelete.remoteImagePath)
+            .delete()
+            .addOnSuccessListener { onSuccess() }
     }
 }

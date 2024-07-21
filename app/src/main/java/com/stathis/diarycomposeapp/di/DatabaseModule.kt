@@ -2,8 +2,8 @@ package com.stathis.diarycomposeapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.stathis.diarycomposeapp.data.database.ImagesDatabase
-import com.stathis.diarycomposeapp.util.IMAGES_DATABASE
+import com.stathis.mongo.database.ImagesDatabase
+import com.stathis.util.IMAGES_DATABASE
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
