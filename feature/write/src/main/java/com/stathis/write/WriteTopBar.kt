@@ -1,4 +1,4 @@
-package com.stathis.diarycomposeapp.presentation.screens.write
+package com.stathis.write
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

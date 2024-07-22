@@ -42,7 +42,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.stathis.mongo.repository.Diaries
-import com.stathis.ui.R
 import com.stathis.util.model.RequestState
 import java.time.ZonedDateTime
 
@@ -149,7 +148,7 @@ fun NavigationDrawer(
                     ) {
                         Image(
                             modifier = Modifier.size(250.dp),
-                            painter = painterResource(id = R.drawable.logo),
+                            painter = painterResource(id = com.stathis.util.R.drawable.logo),
                             contentDescription = "Google Logo"
                         )
                     }

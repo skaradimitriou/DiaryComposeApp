@@ -1,4 +1,4 @@
-package com.stathis.diarycomposeapp.presentation.screens.write
+package com.stathis.write
 
 import android.net.Uri
 import androidx.compose.runtime.getValue
