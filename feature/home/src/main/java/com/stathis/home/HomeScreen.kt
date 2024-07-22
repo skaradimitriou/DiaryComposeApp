@@ -1,4 +1,4 @@
-package com.stathis.diarycomposeapp.presentation.screens.home
+package com.stathis.home
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -41,8 +41,8 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.stathis.diarycomposeapp.R
 import com.stathis.mongo.repository.Diaries
+import com.stathis.ui.R
 import com.stathis.util.model.RequestState
 import java.time.ZonedDateTime
 
@@ -78,7 +78,7 @@ fun HomeScreen(
                     title = "Home Bar Title",
                     onMenuClick = onMenuClicked,
                     dateIsSelected = dateIsSelected,
-                    onDateSelected =  onDateSelected,
+                    onDateSelected = onDateSelected,
                     onDateReset = onDateReset
                 )
             },

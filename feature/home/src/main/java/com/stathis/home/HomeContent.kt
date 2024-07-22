@@ -1,4 +1,4 @@
-package com.stathis.diarycomposeapp.presentation.screens.home
+package com.stathis.home
 
 import android.os.Build
 import androidx.annotation.RequiresApi

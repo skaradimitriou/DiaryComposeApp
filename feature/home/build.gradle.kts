@@ -1,28 +1,19 @@
 plugins {
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("kotlin-parcelize")
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.googleServices)
-    alias(libs.plugins.realm)
 }
 
 android {
-    namespace = "com.stathis.diarycomposeapp"
+    namespace = "com.stathis.home"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.stathis.diarycomposeapp"
         minSdk = 27
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -55,7 +46,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -67,10 +57,8 @@ dependencies {
 
     implementation(project(":core:ui"))
     implementation(project(":core:util"))
-    implementation(project(":data:mongo"))
 
-    implementation(project(":feature:auth"))
-    implementation(project(":feature:home"))
+    implementation(project(":data:mongo"))
 
     implementation(libs.coil)
     implementation(libs.navigation)
@@ -81,15 +69,8 @@ dependencies {
     implementation(libs.hilt.compose)
     ksp(libs.hilt.compiler)
 
-    implementation(libs.room.runtime)
-    annotationProcessor(libs.room.compiler)
-    implementation(libs.room.ktx)
-    ksp(libs.room.compiler)
-
     implementation(libs.firebase.auth)
     implementation(libs.firebase.storage)
-
-    implementation(libs.oneTapCompose)
 
     implementation(libs.realm.base)
     implementation(libs.realm.sync)
@@ -102,8 +83,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
 }

@@ -1,4 +1,4 @@
-package com.stathis.diarycomposeapp.presentation.screens.home
+package com.stathis.home
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close

@@ -1,4 +1,4 @@
-package com.stathis.diarycomposeapp.presentation.screens.home
+package com.stathis.home
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
