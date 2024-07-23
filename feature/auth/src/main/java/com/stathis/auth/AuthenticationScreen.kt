@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun AuthenticationScreen(
+internal fun AuthenticationScreen(
     onButtonClicked: () -> Unit,
     onSuccessFullAuth: () -> Unit,
     onFailedAuthAttempt: (Exception) -> Unit

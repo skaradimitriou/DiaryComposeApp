@@ -30,8 +30,8 @@ import com.maxkeppeler.sheets.calendar.models.CalendarConfig
 import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import com.maxkeppeler.sheets.clock.ClockDialog
 import com.maxkeppeler.sheets.clock.models.ClockSelection
-import com.stathis.util.model.Diary
 import com.stathis.ui.components.DisplayAlertDialog
+import com.stathis.util.model.Diary
 import com.stathis.util.toInstant
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -44,7 +44,7 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WriteTopBar(
+internal fun WriteTopBar(
     selectedDiary: Diary?,
     moodName: () -> String,
     onUpdatedDateTime: (ZonedDateTime) -> Unit,
@@ -180,7 +180,7 @@ fun WriteTopBar(
 }
 
 @Composable
-fun DeleteDiaryAction(
+internal fun DeleteDiaryAction(
     selectedDiary: Diary?, onDeleteConfirm: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }

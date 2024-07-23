@@ -32,7 +32,7 @@ import java.time.LocalDate
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeContent(
+internal fun HomeContent(
     paddingValues: PaddingValues,
     diaryNotes: Map<LocalDate, List<Diary>>,
     onClick: (String) -> Unit
@@ -63,7 +63,7 @@ fun HomeContent(
 }
 
 @Composable
-fun DateHeader(
+internal fun DateHeader(
     localDate: LocalDate
 ) {
     Row(
@@ -111,7 +111,7 @@ fun DateHeader(
 }
 
 @Composable
-fun EmptyPage(
+internal fun EmptyPage(
     title: String = "Empty Diary",
     subtitle: String = "Write Something"
 ) {
@@ -141,6 +141,6 @@ fun EmptyPage(
 
 @Composable
 @Preview(showBackground = true)
-fun DateHeaderPreview() {
+internal fun DateHeaderPreview() {
     DateHeader(localDate = LocalDate.now())
 }

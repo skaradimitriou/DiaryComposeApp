@@ -22,9 +22,7 @@ fun NavGraphBuilder.authenticationRoute(
             onSuccessFullAuth = {
                 goToHomeScreen.invoke()
             },
-            onFailedAuthAttempt = {
-
-            }
+            onFailedAuthAttempt = {}
         )
     }
 }

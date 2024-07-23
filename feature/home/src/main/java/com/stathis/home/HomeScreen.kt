@@ -49,7 +49,7 @@ import java.time.ZonedDateTime
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(
+internal fun HomeScreen(
     diaries: Diaries,
     drawerState: DrawerState,
     onMenuClicked: () -> Unit,
@@ -129,7 +129,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun NavigationDrawer(
+internal fun NavigationDrawer(
     drawerState: DrawerState,
     onSignOutClick: () -> Unit,
     onDeleteAllClicked: () -> Unit,

@@ -73,7 +73,6 @@ dependencies {
     implementation(project(":feature:home"))
     implementation(project(":feature:write"))
 
-    implementation(libs.coil)
     implementation(libs.navigation)
     implementation(libs.splash)
     implementation(libs.lifecycleRuntimeCompose)
@@ -95,10 +94,6 @@ dependencies {
     implementation(libs.realm.base)
     implementation(libs.realm.sync)
     implementation(libs.realm.coroutines)
-
-    implementation(libs.dateTimePicker.core)
-    implementation(libs.dateTimePicker.calendar)
-    implementation(libs.dateTimePicker.clock)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

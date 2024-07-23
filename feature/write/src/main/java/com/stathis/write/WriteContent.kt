@@ -49,7 +49,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun WriteContent(
+internal fun WriteContent(
     uiState: UiState,
     paddingValues: PaddingValues,
     title: String,
